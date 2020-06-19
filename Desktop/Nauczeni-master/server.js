@@ -1,26 +1,11 @@
-var http = require('http');
-var qs = require('querystring');
+const path = require('path');
+const express = require('express');
+const bodyParser = require('body-parser');
+const session = require('express-session');
  
-var pageHTML = '<html>' +
-  '<head>' +
-    '<title>Login Page</title>' +
-    '<meta charset="utf-8">' +
-  '</head>' + 
-  '<body>' +
-    '<form method="post" action="">' +
-      '<div>' +
-        '<label for="nickname">Nickname:</label>' +
-        '<input type="text" name="nickname">' +  
-        '<label for="password">Password:</label>' +
-        '<input type="text" name="paswword">' +
-      '</div>' +
-      '<div>' +
-        '<input type="submit" value="send it">' +
-      '</div>' +
-    '</form>' +
-  '</body>' +
-'</html>';
- 
+// baza danych potem
+
+const app = express();
 var server = http.createServer(function (req, res) {
   var requestData = '';
  

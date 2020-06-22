@@ -12,6 +12,11 @@ const Coach= sequelize.define('Coach', {
         type: Sequelize.STRING,
         autoIncrement: true,
         notEmpty: true,
+    },
+    discipline: {
+        type: Sequelize.STRING,
+        autoIncrement: true,
+        notEmpty: true
     }
 });
 module.exports = Coach;

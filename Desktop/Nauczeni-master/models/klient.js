@@ -16,7 +16,9 @@ const Klient = sequelize.define("Klient", {
     type: Sequelize.STRING,
     notEmpty: true
   },
-  email: { type: Sequelize.STRING, allowNull: false },
+  email: { 
+      type: Sequelize.STRING,
+      allowNull: false },
   password: {
     type: Sequelize.STRING,
     allowNull: false

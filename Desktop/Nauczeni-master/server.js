@@ -2,8 +2,7 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const session = require('express-session');
- 
-// baza danych potem
+const sequelize = require('./util/database')
 
 const app = express();
 var server = http.createServer(function (req, res) {

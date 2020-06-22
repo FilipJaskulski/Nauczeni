@@ -23,9 +23,9 @@ const Address = sequelize.define("Address", {
         notEmpty: true,
     },
     street: {
-    type: Sequelize.STRING, 
-    autoIncrement: true,
-    notEmpty: true,
+        type: Sequelize.STRING, 
+        autoIncrement: true,
+        notEmpty: true,
     },
     buildingnumber: {
         type: Sequelize.INTEGER,

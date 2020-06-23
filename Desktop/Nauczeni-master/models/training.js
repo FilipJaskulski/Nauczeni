@@ -3,7 +3,7 @@ const Sequelize = require("sequelize");
 const sequelize = require("../util/database");
 const { model } = require("../util/database");
 
-const Trening = sequelize.define('Trening', {
+const Training = sequelize.define('Training', {
     id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -21,4 +21,4 @@ const Trening = sequelize.define('Trening', {
         defaultValue: false
     }
 })
-module.exports = Trening;
+module.exports = Training;

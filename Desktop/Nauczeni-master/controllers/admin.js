@@ -2,8 +2,8 @@ const coach = require('../models/coach');
 const { authenticate } = require('../util/database');
 const Coach = require('../models/coach');
 const Discipline = require('../models/discipline');
-const Klient = require('../models/klient');
-const Trening = require('../models/trening');
+const User = require('../models/user');
+const Training = require('../models/training');
 const Address = require('../models/adress');
 
 exports.fetchForAddAppoitment = (req, res, next) => {
@@ -12,12 +12,14 @@ if (req.isAutenthicated()) {
     auth = true;
 } 
 if (req.user.role === "admin") {
-    coachProfile.findAll({ include: [{ model: Klient }] }).then(coaches => {
-      res.render("add-trening", {
+    coachProfile.findAll({ include: [{ model: User }] }).then(coaches => {
+      res.render("add-training", {
         coaches: coaches,
         role: req.user.role,
+        dicsipline: discpline,
         auth: auth,
-        pageTitle: "Dodaj trening"
+        date_time: date_time,
+        pageTitle: "Add training"
       });
     });
   } else {
@@ -40,7 +42,7 @@ Coach.getCoachProfiles({
             coaches: coaches,
             auth: auth,
             role: role,
-            pageTitle: "Trenerzy"
+            pageTitle: "Coaches"
         }}else {
             res.redirect('/no-coaches');
         }
@@ -49,6 +51,11 @@ Coach.getCoachProfiles({
 };
 
 exports.postAddProfile = (req, res, next) => {
+    let auth = false;
+    if(req.isAutenthicated()) {
+        auth= true;
+        role = req.user.role;
+    }
     Coach.create({
         name: req.body.name,
         discpline: req.body.discipline
@@ -62,39 +69,31 @@ exports.postAddProfile = (req, res, next) => {
     }); 
     };
 
-    exports.postAddKlient = (req, res, next) => {
-        Klient.create({
+    exports.postAddUser = (req, res, next) => {
+       let auth= false;
+       if(req.isAutenthicated()) {
+           auth = true;
+           role = req.user.role;
+       }
+        User.create({
             firstname: req.body.firstname,
             lastname: req.body.lastname,
             email: req.body.email,
-           // password: req.body.password,
-           // last_login: req.bdoy.last_login,
-           // status: req.body.status,
-           // role: req.body.role
         })
         .then(result => {
-            res.redirect('/add-klient');
+            res.redirect('/add-user');
         })
         .catch(err => {
-            console.log('klient not created');
-            console.log(err);
-        })
-    }
-    exports.postAddTrening = (req, res, next) => {
-        Trening.create({
-            date_time: req.body.date_time,
-            coach: req.body.coach,
-            dicsipline: req.body.discipline
-        })
-        .then(result => {
-            res.redirect('/add-trening')
-        })
-        .catch(err => {
-            console.log('trening not created');
+            console.log('user not created');
             console.log(err);
         })
     }
     exports.postAddAdress = (req, res, next) => {
+        let auth = false;
+        if(req.isAutenthicated()){
+            auth = true;
+            role = req.user.role;
+        }
         Address.create({
             country: req.body.country,
             city: req.body.city,
@@ -110,3 +109,28 @@ exports.postAddProfile = (req, res, next) => {
             console.log(err);
         })
     }
+    exports.fetchAllCoachesAge = ( req, res, next => {
+        let auth = fasle;
+        if (req.isAutenthicated()) {
+            auth = true;
+            role = req.user.role;
+        } Coach.findAll(req.query.date_time.then(coaches => {
+                coaches
+                .getCoachesAge({
+                    where: {age: req.query.date_time},
+                    include: {model: Coach}
+                })
+                .then(coaches =>{
+                    if(age.lenght > 0) {
+                        res.render('age-coaches'), {
+                            name: name,
+                            age: age,
+                            pageTitle: 'Age of coaches'
+                        };
+                    } else {
+                        res.redirect("/no-coaches-age")
+                    }
+                })
+                .catch(err => console.log(err));
+        }));
+    });

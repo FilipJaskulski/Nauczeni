@@ -2,7 +2,7 @@ const Sequelize = require("sequelize");
 
 const sequelize = require("../util/database");
 
-const Klient = sequelize.define("Klient", {
+const User = sequelize.define("User", {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
@@ -31,8 +31,8 @@ const Klient = sequelize.define("Klient", {
     defaultValue: "active"
   },
   role: {
-    type: Sequelize.ENUM("klient", "trener", "admin"),
-    defaultValue: "klient"
+    type: Sequelize.ENUM("user", "coach", "admin"),
+    defaultValue: "user"
   }
 });
-module.exports = Klient;
+module.exports = User;

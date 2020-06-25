@@ -14,7 +14,7 @@ passport.use('register',
         {
             usernameField: 'username',
             passwordField: 'password',
-            session: false
+            session: false,
         },
         (username, password, done) => {
             try {
